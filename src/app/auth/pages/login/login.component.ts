@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -16,13 +17,20 @@ export class LoginComponent {
   })
 
   constructor(private formBuilder: FormBuilder,
-    private router: Router) { }
+              private router: Router,
+              private authService:AuthService) { }
 
   login() {
+    const {email, password} = this.myForm.value;
     console.log(this.myForm.value)
     console.log(this.myForm.valid)
 
-    this.router.navigateByUrl('/dashboard');
+    this.authService.login(email, password)
+    .subscribe( resp => {
+      console.log(resp);
+    })
+
+    // this.router.navigateByUrl('/dashboard');
   }
   
 
