@@ -23,8 +23,8 @@ export class LoginComponent {
 
   login() {
   const {email, password} = this.myForm.value;
-     console.log(this.myForm.value)
-     console.log(this.myForm.valid)
+    //  console.log(this.myForm.value)
+    //  console.log(this.myForm.valid)
 
      this.authService.login(email, password)
      .subscribe( ok => {

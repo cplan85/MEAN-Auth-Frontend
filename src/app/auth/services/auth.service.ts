@@ -35,6 +35,33 @@ export class AuthService {
           this._user = {
             name: resp.name!,
             uid: resp.uid!,
+            email: resp.email!,
+          }
+         }
+      }),
+      map( resp => resp.ok),
+      catchError( err => of(err.error.msg))
+    );
+
+  }
+
+  register(name: string, email:string, password: string) {
+
+    const url = `${this.baseUrl}auth/new`;
+    const body = {name, email, password};
+
+    return  this.http.post<AuthResponse>(url, body)
+    .pipe(
+      tap( resp => {
+        console.log(resp, '<== response from auth service')
+
+        if (resp.ok) {
+
+          localStorage.setItem('token', resp.token!)
+          this._user = {
+            name: resp.name!,
+            uid: resp.uid!,
+            email: resp.email!,
           }
          }
       }),
@@ -60,6 +87,7 @@ export class AuthService {
         this._user = {
           name: resp.name!,
           uid: resp.uid!,
+          email: resp.email!,
         }
         return resp.ok
       }),
@@ -67,5 +95,9 @@ export class AuthService {
       catchError(err => of(false))
     )
 
+  }
+
+  logout() {
+    localStorage.clear();
   }
 }
