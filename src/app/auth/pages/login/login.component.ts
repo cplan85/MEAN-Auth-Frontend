@@ -22,26 +22,25 @@ export class LoginComponent {
               private authService:AuthService) { }
 
   login() {
-    const {email, password} = this.myForm.value;
-    console.log(this.myForm.value)
-    console.log(this.myForm.valid)
+  const {email, password} = this.myForm.value;
+     console.log(this.myForm.value)
+     console.log(this.myForm.valid)
 
-    this.authService.login(email, password)
-    .subscribe( ok => {
-      console.log(ok, "ok from login")
-      if ( ok === true ) {
-        this.router.navigateByUrl('/dashboard')
-      } else {
-        Swal.fire({
-          title: 'Error!',
+     this.authService.login(email, password)
+     .subscribe( ok => {
+       console.log(ok, "ok from login")
+       if ( ok === true ) {
+         this.router.navigateByUrl('/dashboard')
+       } else {
+         Swal.fire({
+           title: 'Error!',
           text: ok,
-          icon: 'error',
-          confirmButtonText: 'Close'
-        })
-      }
-    })
+      icon: 'error',
+           confirmButtonText: 'Close'
+         })
+       }
+     })
 
-    // this.router.navigateByUrl('/dashboard');
   }
   
 
